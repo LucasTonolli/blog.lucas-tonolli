@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Dashboard\Resources\Categories;
+namespace App\Filament\Dashboard\Resources\Tags;
 
-use App\Filament\Dashboard\Resources\Categories\Pages\ManageCategories;
-use App\Models\Category;
+use App\Filament\Dashboard\Resources\Tags\Pages\ManageTags;
+use App\Models\Tag;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -16,24 +16,25 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CategoryResource extends Resource
+class TagResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Tag::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $modelLabel = 'Categoria';
+
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required()
                     ->maxLength(50)
+                    ->required()
                     ->label('Nome'),
+
             ]);
     }
 
@@ -44,16 +45,14 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable()
                     ->label('Nome'),
                 TextColumn::make('slug')
                     ->searchable(),
                 TextColumn::make('posts.count')
-                    ->sortable()
-                    ->badge()
                     ->default(0)
-                    ->label('Posts')
-
+                    ->badge()
+                    ->sortable()
+                    ->label('Posts'),
             ])
             ->filters([
                 //
@@ -72,7 +71,7 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ManageCategories::route('/'),
+            'index' => ManageTags::route('/'),
         ];
     }
 }
