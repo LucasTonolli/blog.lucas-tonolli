@@ -5,15 +5,24 @@ namespace App\Enum;
 enum PostStatusEnum: string
 {
     case Draft = 'draft';
-    case Archive = 'archived';
+    case Archived = 'archived';
     case Published = 'published';
 
     public function getLabel(): string
     {
         return match ($this) {
             self::Draft => 'Rascunho',
-            self::Archive => 'Arquivado',
+            self::Archived => 'Arquivado',
             self::Published => 'Publicado',
         };
+    }
+
+    public static function options(): array
+    {
+        return [
+            self::Draft->value => self::Draft->getLabel(),
+            self::Archived->value => self::Archived->getLabel(),
+            self::Published->value => self::Published->getLabel(),
+        ];
     }
 }

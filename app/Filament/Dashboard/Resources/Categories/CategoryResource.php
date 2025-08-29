@@ -20,7 +20,7 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Tag;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -48,10 +48,10 @@ class CategoryResource extends Resource
                     ->label('Nome'),
                 TextColumn::make('slug')
                     ->searchable(),
-                TextColumn::make('posts.count')
+                TextColumn::make('posts_count')
+                    ->counts('posts')
                     ->sortable()
                     ->badge()
-                    ->default(0)
                     ->label('Posts')
 
             ])

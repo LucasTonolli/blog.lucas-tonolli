@@ -20,7 +20,7 @@ class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Hashtag;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -48,8 +48,8 @@ class TagResource extends Resource
                     ->label('Nome'),
                 TextColumn::make('slug')
                     ->searchable(),
-                TextColumn::make('posts.count')
-                    ->default(0)
+                TextColumn::make('posts_count')
+                    ->counts('posts')
                     ->badge()
                     ->sortable()
                     ->label('Posts'),
