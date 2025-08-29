@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class PostViewFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'post_id' => Post::factory()->create()->id,
+            'hashed_ip' => fake()->ipv4(),
+            'viewed_at' => now(),
         ];
     }
 }

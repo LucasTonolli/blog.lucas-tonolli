@@ -3,6 +3,7 @@
 namespace App\Filament\Dashboard\Resources\Posts\Tables;
 
 use App\Enum\PostStatusEnum;
+use Dom\Text;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -37,6 +38,16 @@ class PostsTable
                     })
                     ->formatStateUsing(fn(PostStatusEnum $state): string => $state->getLabel())
                     ->label('Status'),
+                TextColumn::make('views_count')
+                    ->counts('views')
+                    ->sortable()
+                    ->badge()
+                    ->color(fn(int $state): string => match (true) {
+                        $state  < 10 => 'danger',
+                        $state >= 10 && $state < 100 => 'warning',
+                        $state >= 100 => 'success',
+                    })
+                    ->label('Visualizações'),
                 TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable()
